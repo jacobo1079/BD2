@@ -23,7 +23,10 @@ public class FachadaGui {
     }
     
     public void iniciaVista() {
+        Vautenticacion va;
+        va = new Vautenticacion(vp, true, fa);
         vp.setVisible(true);
+        va.setVisible(true);
     }
     
     public void muestraExcepcion(String txtExcepcion){

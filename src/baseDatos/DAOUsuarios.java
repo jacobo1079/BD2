@@ -356,7 +356,8 @@ public class DAOUsuarios extends AbstractDAO{
         stmAutenticacion.setString(1, clave);
         stmAutenticacion.setString(2, correo);
         rsAutenticacion = stmAutenticacion.executeQuery();
-        if(rsAutenticacion.getBoolean("respuesta")) return true;
+        rsAutenticacion.next();
+        if(rsAutenticacion.getBoolean("pass")) return true;
         } catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
