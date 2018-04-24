@@ -26,7 +26,9 @@ public class Vgrados extends javax.swing.JDialog {
         
         ModeloTablaAsignaturas mtablaAsignaturas = new ModeloTablaAsignaturas();
         mtablaAsignaturas.setFilas(gr.getAsignaturas());
-        tablaGrados.setModel(mtablaAsignaturas);
+        tablaAsignaturas.setModel(mtablaAsignaturas);
+        if(gr.getAsignaturas().size()>0) tablaAsignaturas.setRowSelectionInterval(0, 0);
+        this.tablaAsignaturasMouseClicked(new java.awt.event.MouseEvent(parent, WIDTH, WIDTH, SOMEBITS, WIDTH, WIDTH, HEIGHT, modal));
     }
 
     /**
@@ -41,7 +43,7 @@ public class Vgrados extends javax.swing.JDialog {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaGrados = new javax.swing.JTable();
+        tablaAsignaturas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -79,10 +81,15 @@ public class Vgrados extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tablaGrados.setModel(new ModeloTablaAsignaturas());
-        jScrollPane1.setViewportView(tablaGrados);
+        tablaAsignaturas.setModel(new ModeloTablaAsignaturas());
+        tablaAsignaturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaAsignaturasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaAsignaturas);
 
-        jLabel1.setText("Tabla de grados:");
+        jLabel1.setText("Tabla de asignaturas:");
 
         jLabel2.setText("Asignatura");
 
@@ -328,6 +335,10 @@ public class Vgrados extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tablaAsignaturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAsignaturasMouseClicked
+        
+    }//GEN-LAST:event_tablaAsignaturasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -361,7 +372,7 @@ public class Vgrados extends javax.swing.JDialog {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JList<String> listaBloques;
     private javax.swing.JTextArea taDescripcionBloque;
-    private javax.swing.JTable tablaGrados;
+    private javax.swing.JTable tablaAsignaturas;
     private javax.swing.JTextField txtBloqueAsignatura;
     private javax.swing.JTextField txtCodigoAsignatura;
     private javax.swing.JTextField txtCreditosAsignatura;
