@@ -609,6 +609,12 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
         }else if(user instanceof Profesor){
                 comboBoxUsuario.setSelectedIndex(2);
                 comboBox1.setEnabled(true);
+                comboBox2.setEnabled(true);
+                labelCombobox2.setText("Grados :");
+                comboBox2.removeAllItems();
+                comboBox2.addItem("");
+                for(Grado gra:grados) comboBox2.addItem(gra.toString());
+                for(int i=0;i<grados.size();i++) if(grados.get(i).getCodigo().equalsIgnoreCase(((Profesor) user).getGradoAsociado())) comboBox2.setSelectedIndex(i+1);
                 labelCombobox1.setText("Bloques :");
                 this.bloques = fa.ConsultarBloques("", "", "");
                 for(Bloque gra:bloques) comboBox1.addItem(gra.toString());
@@ -839,7 +845,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                         if(nombreGrado.equalsIgnoreCase(((String) comboBox1.getSelectedItem())))
                             if(comboBoxUsuario.getSelectedItem().toString().equalsIgnoreCase("Alumno")) return true;
                     }
-                    else if(usuarios.get(tablaUsuarios.getSelectedRow()) instanceof Profesor)
+                    else if(usuarios.get(tablaUsuarios.getSelectedRow()) instanceof Profesor){
                         if(((Profesor) usuarios.get(tablaUsuarios.getSelectedRow())).getBloqueAsociado().equalsIgnoreCase(((String) comboBox1.getSelectedItem()))){
                             String idGrado  =((Profesor) usuarios.get(tablaUsuarios.getSelectedRow())).getGradoAsociado();
                             String nombreGrado="";
@@ -847,7 +853,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                             if(nombreGrado.equalsIgnoreCase(((String) comboBox2.getSelectedItem())))
                                 if(comboBoxUsuario.getSelectedItem().toString().equalsIgnoreCase("Profesor")) return true;
                         }
-                    else if(usuarios.get(tablaUsuarios.getSelectedRow()) instanceof Administrador)
+                    }else if(usuarios.get(tablaUsuarios.getSelectedRow()) instanceof Administrador)
                         if(comboBoxUsuario.getSelectedItem().toString().equalsIgnoreCase("Administrador")) return true;
         return false;
     }
