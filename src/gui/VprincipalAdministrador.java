@@ -523,7 +523,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                     if(g.getNombre().equals(comboBox1.getSelectedItem())) 
                         gr = g;
                 if(gr!=null){
-                    Alumno al = new Alumno(txtNombreUsuario.getText(), txtDniUsurio.getText(), txtCorreoUsuario.getText(), new Timestamp(System.currentTimeMillis()), "default",gr.getCodigo() );
+                    Alumno al = new Alumno(txtNombreUsuario.getText(), txtDniUsurio.getText(), txtCorreoUsuario.getText(), new Timestamp(System.currentTimeMillis()),gr.getCodigo() );
                     bien = fa.insertarAlumno(al);
                     usuarios.add(al);
                 }
@@ -532,7 +532,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                 for(Bloque b:bloques) if(b.getNombre().equalsIgnoreCase(((String) comboBox1.getSelectedItem()))) bl=b;
                 for(Grado g:grados) if(g.getNombre().equals(comboBox2.getSelectedItem())) gr = g;
                 if(gr!=null&&bl!=null){
-                    Profesor p = new Profesor(txtNombreUsuario.getText(), txtDniUsurio.getText(), txtCorreoUsuario.getText(), new Timestamp(System.currentTimeMillis()), "default", gr.getCodigo(), bl.getNombre());
+                    Profesor p = new Profesor(txtNombreUsuario.getText(), txtDniUsurio.getText(), txtCorreoUsuario.getText(), new Timestamp(System.currentTimeMillis()), gr.getCodigo(), bl.getNombre());
                     bien = fa.insertarProfesro(p);
                     usuarios.add(p);
                 }
@@ -542,7 +542,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                     if(g.getNombre().equals(comboBox1.getSelectedItem())) 
                         gr = g;
                 if(gr!=null){
-                    Administrador ad = new Administrador(txtNombreUsuario.getText(), txtDniUsurio.getText(), txtCorreoUsuario.getText(), new Timestamp(System.currentTimeMillis()),"default");
+                    Administrador ad = new Administrador(txtNombreUsuario.getText(), txtDniUsurio.getText(), txtCorreoUsuario.getText(), new Timestamp(System.currentTimeMillis()));
                     bien = fa.insertarAdministrador(ad);
                     usuarios.add(ad);
                 }
@@ -668,8 +668,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorreoActionPerformed
-            //fa.abrirCorreo(administrador.getCorreo());
-        fa.abrirCorreo("jose.tojeiro@trilmail.com");
+        fa.abrirCorreo(administrador.getCorreo());
     }//GEN-LAST:event_btnCorreoActionPerformed
 
     private void txtCorreoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoUsuarioKeyTyped
@@ -834,5 +833,9 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                     }else if(usuarios.get(tablaUsuarios.getSelectedRow()) instanceof Administrador)
                         if(comboBoxUsuario.getSelectedItem().toString().equalsIgnoreCase("Administrador")) return true;
         return false;
+    }
+    
+    public void setAdministrador(Administrador admin){
+        if(admin!=null) this.administrador=admin;
     }
 }

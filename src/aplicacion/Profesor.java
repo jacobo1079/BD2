@@ -16,8 +16,8 @@ public class Profesor extends Usuario{
     private String gradoAsociado;
     private String bloqueAsociado;
     
-    public Profesor(String nombre, String dni, String correo, Timestamp fechaNacimiento, String clave,String gradoAsociado,String bloqueAsociado) {
-        super(nombre, dni, correo, fechaNacimiento, clave);
+    public Profesor(String nombre, String dni, String correo, Timestamp fechaNacimiento,String gradoAsociado,String bloqueAsociado) {
+        super(nombre, dni, correo, fechaNacimiento);
         this.gradoAsociado = gradoAsociado;
         this.bloqueAsociado = bloqueAsociado;
     }

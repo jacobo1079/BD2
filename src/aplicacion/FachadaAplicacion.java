@@ -79,7 +79,7 @@ public class FachadaAplicacion {
     public void abrirCorreo(String correo){
         cm.abrirCorreo(correo);
     }
-    public boolean esClaveCorrecta(String correo, String clave){
+    public Usuario esClaveCorrecta(String correo, String clave){
         return fbd.esClaveCorrecta(correo, clave);
     }
 }

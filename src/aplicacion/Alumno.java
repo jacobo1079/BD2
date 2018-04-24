@@ -15,8 +15,8 @@ public class Alumno extends Usuario{
     
     private String grado;
     
-    public Alumno(String nombre, String dni, String correo, Timestamp fechaNacimiento, String clave,String grado) {
-        super(nombre, dni, correo, fechaNacimiento, clave);
+    public Alumno(String nombre, String dni, String correo, Timestamp fechaNacimiento,String grado) {
+        super(nombre, dni, correo, fechaNacimiento);
         this.grado=grado;
     }
 

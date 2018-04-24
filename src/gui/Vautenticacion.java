@@ -5,18 +5,23 @@
  */
 package gui;
 
+import aplicacion.Administrador;
+import aplicacion.Usuario;
+
 /**
  *
  * @author slimbbok
  */
 public class Vautenticacion extends javax.swing.JDialog {
 
-    aplicacion.FachadaAplicacion fa;
+    private aplicacion.FachadaAplicacion fa;
+    private java.awt.Frame padre;
     /**
      * Creates new form Vautenticacion
      */
     public Vautenticacion(java.awt.Frame parent, boolean modal,aplicacion.FachadaAplicacion fa) {
         super(parent, modal);
+        this.padre = parent;
         initComponents();
         this.fa=fa;
         labelError.setVisible(false);
@@ -42,17 +47,24 @@ public class Vautenticacion extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        txtContrasena = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
         labelError = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        txtContrasena = new javax.swing.JPasswordField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Usuario :");
 
         jLabel2.setText("Contraseña :");
+
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
 
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +87,12 @@ public class Vautenticacion extends javax.swing.JDialog {
 
         jLabel3.setText("Autenticación usuarios:");
 
+        txtContrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContrasenaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,15 +111,18 @@ public class Vautenticacion extends javax.swing.JDialog {
                 .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(17, 17, 17))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(labelError)
-                            .addGap(85, 85, 85)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelError)
+                        .addGap(85, 85, 85))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
@@ -116,15 +137,21 @@ public class Vautenticacion extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(labelError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnConfirmar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)))
                 .addComponent(btnSalir)
                 .addGap(16, 16, 16))
         );
@@ -134,14 +161,64 @@ public class Vautenticacion extends javax.swing.JDialog {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         labelError.setVisible(false);
-        if (fa.esClaveCorrecta(txtUsuario.getText(), txtContrasena.getText()))
-           this.dispose();
-        else labelError.setVisible(true);
+        Usuario us;
+        if ((us = fa.esClaveCorrecta(txtUsuario.getText(), txtContrasena.getText()))!=null){
+           if(us instanceof Administrador){
+               ((VprincipalAdministrador) this.padre).setAdministrador(((Administrador) us));
+               this.dispose();
+           }
+           else {
+               labelError.setText("El usuario no tiene permisos de administracion!");
+               labelError.setVisible(true);
+           }
+        }
+        else {
+            labelError.setText("El usuario o contraseña son incorrectos!");
+            labelError.setVisible(true);
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaActionPerformed
+        labelError.setVisible(false);
+        Usuario us;
+        if ((us = fa.esClaveCorrecta(txtUsuario.getText(), txtContrasena.getText()))!=null){
+           if(us instanceof Administrador){
+               ((VprincipalAdministrador) this.padre).setAdministrador(((Administrador) us));
+               this.dispose();
+           }
+           else {
+               labelError.setText("El usuario no tiene permisos de administracion!");
+               labelError.setVisible(true);
+           }
+        }
+        else {
+            labelError.setText("El usuario o contraseña son incorrectos!");
+            labelError.setVisible(true);
+        }
+    }//GEN-LAST:event_txtContrasenaActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        labelError.setVisible(false);
+        Usuario us;
+        if ((us = fa.esClaveCorrecta(txtUsuario.getText(), txtContrasena.getText()))!=null){
+           if(us instanceof Administrador){
+               ((VprincipalAdministrador) this.padre).setAdministrador(((Administrador) us));
+               this.dispose();
+           }
+           else {
+               labelError.setText("El usuario no tiene permisos de administracion!");
+               labelError.setVisible(true);
+           }
+        }
+        else {
+            labelError.setText("El usuario o contraseña son incorrectos!");
+            labelError.setVisible(true);
+        }
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,11 +227,12 @@ public class Vautenticacion extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelError;
-    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

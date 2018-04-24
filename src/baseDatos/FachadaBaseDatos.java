@@ -100,7 +100,7 @@ public class FachadaBaseDatos {
          daoMensajes.consultarMensajes(correo);
          return daoMensajes.consultarMensajes(correo);
     }
-    public boolean esClaveCorrecta(String correo, String clave){
+    public Usuario esClaveCorrecta(String correo, String clave){
         return daoUsuarios.esClaveCorrecta(correo, clave);
     }
 }

@@ -49,7 +49,7 @@ public class DAOUsuarios extends AbstractDAO{
              
         while (rsUsuarios.next())
         {
-            usuarioActual = new Alumno(rsUsuarios.getString("nombre"), rsUsuarios.getString("dni"),rsUsuarios.getString("correo"),Timestamp.valueOf(rsUsuarios.getString("fecha_nac")),rsUsuarios.getString("clave"),rsUsuarios.getString("grado"));
+            usuarioActual = new Alumno(rsUsuarios.getString("nombre"), rsUsuarios.getString("dni"),rsUsuarios.getString("correo"),Timestamp.valueOf(rsUsuarios.getString("fecha_nac")),rsUsuarios.getString("grado"));
             
             
             resultado.add(usuarioActual);
@@ -87,7 +87,7 @@ public class DAOUsuarios extends AbstractDAO{
              
         while (rsUsuarios.next())
         {
-            usuarioActual = new Profesor(rsUsuarios.getString("nombre"), rsUsuarios.getString("dni"),rsUsuarios.getString("correo"),Timestamp.valueOf(rsUsuarios.getString("fecha_nac")),rsUsuarios.getString("clave"),rsUsuarios.getString("gradoasociado"),rsUsuarios.getString("bloqueAsociado"));
+            usuarioActual = new Profesor(rsUsuarios.getString("nombre"), rsUsuarios.getString("dni"),rsUsuarios.getString("correo"),Timestamp.valueOf(rsUsuarios.getString("fecha_nac")),rsUsuarios.getString("gradoasociado"),rsUsuarios.getString("bloqueAsociado"));
             
             resultado.add(usuarioActual);
         }
@@ -124,7 +124,7 @@ public class DAOUsuarios extends AbstractDAO{
              
         while (rsUsuarios.next())
         {
-            usuarioActual = new Administrador(rsUsuarios.getString("nombre"), rsUsuarios.getString("dni"),rsUsuarios.getString("correo"),Timestamp.valueOf(rsUsuarios.getString("fecha_nac")),rsUsuarios.getString("clave"));
+            usuarioActual = new Administrador(rsUsuarios.getString("nombre"), rsUsuarios.getString("dni"),rsUsuarios.getString("correo"),Timestamp.valueOf(rsUsuarios.getString("fecha_nac")));
             
             
             resultado.add(usuarioActual);
@@ -344,10 +344,15 @@ public class DAOUsuarios extends AbstractDAO{
         return retorno;
     }
 
-    public boolean esClaveCorrecta(String correo, String clave){
+    public Usuario esClaveCorrecta(String correo, String clave){
+        Administrador admin;
         Connection con;
         PreparedStatement stmAutenticacion=null;
+        PreparedStatement stmGet=null;
+        PreparedStatement stmAdministrador = null;
         ResultSet rsAutenticacion;
+        ResultSet rsUsuario;
+        ResultSet rsAdmin;
 
         con=super.getConexion();
 
@@ -357,14 +362,48 @@ public class DAOUsuarios extends AbstractDAO{
         stmAutenticacion.setString(2, correo);
         rsAutenticacion = stmAutenticacion.executeQuery();
         rsAutenticacion.next();
-        if(rsAutenticacion.getBoolean("pass")) return true;
+        if(rsAutenticacion.getBoolean("pass")){
+            String getAdministrador = "select * from usuario where correo = ?";
+            try{
+                stmGet = con.prepareStatement(getAdministrador);
+                stmGet.setString(1, correo);
+                rsUsuario = stmGet.executeQuery();
+                rsUsuario.next();
+                admin = new Administrador(rsUsuario.getString("nombre"),rsUsuario.getString("dni"),rsUsuario.getString("correo"),rsUsuario.getTimestamp("fecha_nac"));
+                
+                
+                String esAdmin = "select (exists(select correo from administrador where correo = ?)) as respuesta";
+                
+                try{
+                    stmAdministrador = con.prepareStatement(esAdmin);
+                    stmAdministrador.setString(1, correo);
+                    rsAdmin = stmAdministrador.executeQuery();
+                    rsAdmin.next();
+                    if(rsAdmin.getBoolean("respuesta")) return admin;
+                    else return new Alumno("", "", "", new Timestamp(System.currentTimeMillis()), "");
+                }catch (SQLException e){
+                  System.out.println(e.getMessage());
+                  this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+                }finally{
+                  try {stmAdministrador.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+                }
+                
+                
+                return admin;
+            }catch (SQLException e){
+              System.out.println(e.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            }finally{
+              try {stmGet.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+            }
+        }
         } catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
         }finally{
           try {stmAutenticacion.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
-        return false;
+        return null;
     }
     
     public boolean eliminarAlumno(Alumno al){

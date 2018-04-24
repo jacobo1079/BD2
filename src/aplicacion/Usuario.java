@@ -17,7 +17,6 @@ public abstract class Usuario {
     private String nombre;
     private String correo;
     private Timestamp fechaNacimiento;
-    private String clave;
     /////////////////////////////////////////////////      CONSTRUCTORES
 
     public Timestamp getFechaNacimiento() {
@@ -28,20 +27,13 @@ public abstract class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
     
-    public Usuario(String nombre,String dni,String correo,Timestamp fechaNacimiento,String clave){
+    public Usuario(String nombre,String dni,String correo,Timestamp fechaNacimiento){
         this.nombre=nombre;
         this.dni=dni;
         this.correo=correo;
         this.fechaNacimiento=fechaNacimiento;
     }
 
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
     /////////////////////////////////////////////////        GETTERS
     public String getDni(){
         return dni;

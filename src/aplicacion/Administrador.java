@@ -13,8 +13,8 @@ import java.sql.Timestamp;
  */
 public class Administrador extends Usuario{
     
-    public Administrador(String nombre, String dni, String correo, Timestamp fechaNacimiento, String clave) {
-        super(nombre, dni, correo, fechaNacimiento, clave);
+    public Administrador(String nombre, String dni, String correo, Timestamp fechaNacimiento) {
+        super(nombre, dni, correo, fechaNacimiento);
     }
     
     @Override
