@@ -104,6 +104,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnCorreo = new javax.swing.JButton();
+        btnAdministrarGrado = new javax.swing.JButton();
         pestanaUsuarios = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaUsuarios = new javax.swing.JTable();
@@ -125,6 +126,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
         labelCombobox2 = new javax.swing.JLabel();
         comboBox2 = new javax.swing.JComboBox<>();
         btnSalir = new javax.swing.JButton();
+        btnCambioUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -195,6 +197,13 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
             }
         });
 
+        btnAdministrarGrado.setText("Administrar Grado");
+        btnAdministrarGrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministrarGradoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -212,13 +221,6 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
@@ -226,16 +228,26 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnCorreo)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAdministrarGrado)
+                        .addGap(98, 98, 98))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -250,7 +262,9 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                             .addComponent(btnBuscar)
                             .addComponent(btnGuardar)
                             .addComponent(btnBorrar))
-                        .addGap(140, 140, 140))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAdministrarGrado)
+                        .addGap(91, 91, 91))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -441,12 +455,11 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pestanaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnModificarUsuario)
-                            .addComponent(btnFiltrarUsuarios))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnFiltrarUsuarios)))
                     .addGroup(pestanaUsuariosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 29, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Usuarios", pestanaUsuarios);
@@ -458,6 +471,13 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
             }
         });
 
+        btnCambioUsuario.setText("Cambiar de Usuario");
+        btnCambioUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambioUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -466,7 +486,9 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTabbedPane))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
+                .addComponent(btnCambioUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -476,7 +498,9 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir)
+                    .addComponent(btnCambioUsuario))
                 .addGap(15, 15, 15))
         );
 
@@ -499,7 +523,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
                 fa.modificarGrado(grados.get(index));
                 break;
             default:
-                Grado gr = new Grado(txtNombre.getText(), txtCodigo.getText());
+                Grado gr = new Grado(txtNombre.getText(), txtCodigo.getText(),new java.util.ArrayList());
                 fa.insertarGrado(gr);
                 grados.add(gr);
                 index = tablaGrados.getRowCount()-1;
@@ -562,6 +586,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
         Grado gr = grados.get(tablaGrados.getSelectedRow());
         txtCodigo.setText(gr.getCodigo());
         txtNombre.setText(gr.getNombre());
+        btnAdministrarGrado.setEnabled(true);
     }//GEN-LAST:event_tablaGradosMouseClicked
 
     private void txtNombreInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtNombreInputMethodTextChanged
@@ -711,7 +736,9 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
             if(!btnBuscar.isEnabled()) btnBuscar.setEnabled(true);
             btnGuardar.setEnabled(true);
             btnBorrar.setEnabled(false);
+            btnAdministrarGrado.setEnabled(false);
         }else{
+            btnAdministrarGrado.setEnabled(true);
             btnBuscar.setEnabled(false);
             btnGuardar.setEnabled(false);
             btnBorrar.setEnabled(true);
@@ -725,7 +752,9 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
             btnGuardar.setEnabled(true);
             btnBorrar.setEnabled(false);
             btnGuardar.setText("Nuevo");
+            btnAdministrarGrado.setEnabled(false);
         }else{
+            btnAdministrarGrado.setEnabled(true);
             btnBuscar.setEnabled(false);
             btnGuardar.setEnabled(false);
             btnBorrar.setEnabled(true);
@@ -763,16 +792,28 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBorrarUsuarioActionPerformed
 
+    private void btnCambioUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambioUsuarioActionPerformed
+        Vautenticacion va = new Vautenticacion(this, rootPaneCheckingEnabled, fa);
+        va.setVisible(true);
+    }//GEN-LAST:event_btnCambioUsuarioActionPerformed
+
+    private void btnAdministrarGradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarGradoActionPerformed
+        Vgrados vg = new Vgrados(this, rootPaneCheckingEnabled,fa,grados.get(tablaGrados.getSelectedRow()));
+        vg.setVisible(true);
+    }//GEN-LAST:event_btnAdministrarGradoActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdministrarGrado;
     private javax.swing.JButton btnAnadirUsuario;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBorrarUsuario;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCambioUsuario;
     private javax.swing.JButton btnCorreo;
     private javax.swing.JButton btnFiltrarUsuarios;
     private javax.swing.JButton btnGuardar;

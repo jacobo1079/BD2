@@ -5,6 +5,7 @@
  */
 package baseDatos;
 
+import aplicacion.Asignatura;
 import aplicacion.Grado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,10 +26,16 @@ public class DAOGrados extends AbstractDAO{
     public java.util.List<Grado> consultarGrados(String codigo, String nombre){
         
         java.util.List<Grado> resultado = new java.util.ArrayList<Grado>();
+        java.util.List<Asignatura> asignaturasGradoactual  = new java.util.ArrayList();
         Grado gradoActual;
+        Asignatura asignaturaActual;
         Connection con;
         PreparedStatement stmGrados=null;
+        PreparedStatement stmAsignaturas=null;
+        PreparedStatement stmMatriculas=null;
         ResultSet rsGrados;
+        ResultSet rsAsignaturas;
+        ResultSet rsMatriculas;
         con=this.getConexion();
         
         String consulta = "select codigo,nombre " +
@@ -43,9 +50,44 @@ public class DAOGrados extends AbstractDAO{
              rsGrados = stmGrados.executeQuery();
         while (rsGrados.next())
         {
-            gradoActual = new Grado(rsGrados.getString("nombre"), rsGrados.getString("codigo"));
             
-            //si hacemos lo de los alumnos de grado mirar el daoLibros de la biblioteca funcion obtener catalogo
+            String consultaAsignaturas = "select codigo,bloque,nombre,creditos,grado,tipo,curso from asignatura where grado = ?";
+            
+            try{
+                stmAsignaturas = con.prepareStatement(consultaAsignaturas);
+                stmAsignaturas.setString(1, rsGrados.getString("codigo"));
+                rsAsignaturas = stmAsignaturas.executeQuery();
+                asignaturasGradoactual = new java.util.ArrayList();
+                
+                
+                
+                while(rsAsignaturas.next()){
+                
+                    String consultaMatriculados = "select count(estado) from (select estado from solicitarmatricula" +
+                                                    " where estado = 'aprobada' and codigoasignatura = ?) as matriculas";
+                     try{
+                         stmMatriculas = con.prepareStatement(consultaMatriculados);
+                         stmMatriculas.setString(1, rsAsignaturas.getString("codigo"));
+                         rsMatriculas = stmMatriculas.executeQuery();
+                         rsMatriculas.next();
+                        asignaturaActual = new Asignatura( rsAsignaturas.getString("nombre"), rsAsignaturas.getString("codigo"), rsAsignaturas.getString("bloque"), rsAsignaturas.getString("grado"),rsAsignaturas.getInt("creditos") , rsAsignaturas.getString("tipo"), rsAsignaturas.getInt("curso"), rsMatriculas.getInt("count"));
+                        asignaturasGradoactual.add(asignaturaActual);
+                     }catch (SQLException e){
+                      System.out.println(e.getMessage());
+                      this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+                    }finally{
+                      try {stmMatriculas.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+                    }
+                }
+            }catch (SQLException e){
+              System.out.println(e.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            }finally{
+              try {stmAsignaturas.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+            }
+
+            gradoActual = new Grado(rsGrados.getString("nombre"), rsGrados.getString("codigo"),asignaturasGradoactual);
+            
             
             resultado.add(gradoActual);
         }
