@@ -100,6 +100,11 @@ public class Vcorreo extends javax.swing.JDialog {
         jLabel3.setText("Asunto:");
 
         btnNuevoMensaje.setText("Nuevo mensaje");
+        btnNuevoMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoMensajeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,6 +214,11 @@ public class Vcorreo extends javax.swing.JDialog {
             mtablaMensajesdos.setFilas(mensajes);
         }
     }//GEN-LAST:event_btnFiltarLeidoActionPerformed
+
+    private void btnNuevoMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoMensajeActionPerformed
+        VenviarMensaje vem = new VenviarMensaje(parent, rootPaneCheckingEnabled);
+        vem.setVisible(true);
+    }//GEN-LAST:event_btnNuevoMensajeActionPerformed
 
     /**
      * @param args the command line arguments

@@ -188,6 +188,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo mensaje"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoMensajeActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
