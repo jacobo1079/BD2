@@ -25,7 +25,7 @@ public class DAOMensajes extends AbstractDAO {
         super.setFachadaAplicacion(fa);
     }
 
-    public java.util.List<Mensaje> consultarMensajes(String correo) {
+    public java.util.List<Mensaje> consultarMensajes(String correo,String emisor, String asunto) {
         java.util.List<Mensaje> resultado = new java.util.ArrayList();
         Mensaje mensajeActual;
         Connection con;
@@ -35,11 +35,13 @@ public class DAOMensajes extends AbstractDAO {
         
         String consulta = "select *"
                                 + " from enviarmensaje"
-                                + " where correodestinatario like ? ";
+                                + " where correodestinatario like ? and correoremitente like ? and asunto like ?";
         
         try  {
              stmMensaje = con.prepareStatement(consulta);
-             stmMensaje.setString(1, "%"+correo+"%"); 
+             stmMensaje.setString(1, "%"+correo+"%");
+             stmMensaje.setString(2, "%"+emisor+"%");
+             stmMensaje.setString(3, "%"+asunto+"%");
              rsMensaje = stmMensaje.executeQuery();
              
         while (rsMensaje.next())

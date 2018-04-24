@@ -96,9 +96,8 @@ public class FachadaBaseDatos {
     public boolean eliminarAlumno(Alumno us){
         return daoUsuarios.eliminarAlumno(us);
     }
-    public java.util.List<Mensaje> consultarMensajes(String correo){
-         daoMensajes.consultarMensajes(correo);
-         return daoMensajes.consultarMensajes(correo);
+    public java.util.List<Mensaje> consultarMensajes(String correo,String emisor,String asunto){
+         return daoMensajes.consultarMensajes(correo,emisor,asunto);
     }
     public Usuario esClaveCorrecta(String correo, String clave){
         return daoUsuarios.esClaveCorrecta(correo, clave);

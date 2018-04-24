@@ -58,6 +58,11 @@ public class Vcorreo extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tablaMensajes.setModel(new ModeloTablaMensajes());
+        tablaMensajes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMensajesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaMensajes);
 
         jLabel1.setText("Bandeja de Mensajes:");
@@ -145,6 +150,10 @@ public class Vcorreo extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablaMensajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMensajesMouseClicked
+        taMensaje.setText(mensajes.get(tablaMensajes.getSelectedRow()).getTexto());
+    }//GEN-LAST:event_tablaMensajesMouseClicked
 
     /**
      * @param args the command line arguments
