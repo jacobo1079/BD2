@@ -412,44 +412,38 @@ public class DAOUsuarios extends AbstractDAO{
         PreparedStatement stmUsuario=null;
 
         con=super.getConexion();
-        
         try {
+            con.setAutoCommit(false);
+            
             stmUsuario=con.prepareStatement("delete from alumno where correo = ?");
             stmUsuario.setString(1, al.getCorreo());
             stmUsuario.executeUpdate();
-            if(!this.eliminarTablaUsuarios(al)){
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(DAOUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if(!this.eliminarTablaUsuarios(al)){
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(DAOUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    PreparedStatement stmInsertar=null;
-                    String insert = "insert into alumno(correo,grado) values (?,?)";
-                    try{
-                        stmInsertar = con.prepareStatement(insert);
-                        stmInsertar.setString(1, al.getCorreo());
-                        stmInsertar.setString(2, al.getGrado());
-                    }catch (SQLException e){
-                      System.out.println(e.getMessage());
-                      this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
-                    }finally{
-                      try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
-                    }
-                    return false;
-                }
-                return true;
-            }
+            
+            
+            stmUsuario=con.prepareStatement("delete from usuario where correo = ?");
+            stmUsuario.setString(1, al.getCorreo());
+            stmUsuario.executeUpdate();
+            
+            
+            con.commit();
             retorno=true;
+            
         } catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            try{
+              con.rollback();
+            }catch(SQLException ex){
+              System.out.println(ex.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(ex.getMessage());
+            }
         }finally{
+            try{
+            con.setAutoCommit(true);
+            }catch(SQLException e){
+              System.out.println(e.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            }
           try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
         return retorno;

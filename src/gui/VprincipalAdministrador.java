@@ -575,6 +575,8 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
         if(bien){
             ((ModeloTablaUsuarios) tablaUsuarios.getModel()).setFilas(usuarios);
             tablaUsuarios.setRowSelectionInterval(tablaUsuarios.getRowCount()-1, tablaUsuarios.getRowCount()-1);
+            btnAnadirUsuario.setEnabled(false);
+            btnBorrarUsuario.setEnabled(true);
         }
     }//GEN-LAST:event_btnAnadirUsuarioActionPerformed
 
@@ -785,10 +787,12 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBox2ActionPerformed
 
     private void btnBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarUsuarioActionPerformed
-        if(fa.eliminarAlumno(((Alumno) usuarios.get(tablaUsuarios.getSelectedRow())))){
-            usuarios.remove(tablaGrados.getSelectedRow());
-            ((ModeloTablaUsuarios) tablaUsuarios.getModel()).eliminarFila(tablaUsuarios.getSelectedRow());
+        int pos = tablaUsuarios.getSelectedRow();
+        if(fa.eliminarAlumno(((Alumno) usuarios.get(pos)))){
+            usuarios.remove(pos);
+            ((ModeloTablaUsuarios) tablaUsuarios.getModel()).setFilas(usuarios);
             tablaUsuarios.setRowSelectionInterval(0, 0);
+            tablaUsuariosMouseClicked(null);
         }
     }//GEN-LAST:event_btnBorrarUsuarioActionPerformed
 
