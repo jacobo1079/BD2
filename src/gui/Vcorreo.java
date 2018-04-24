@@ -5,7 +5,7 @@
  */
 package gui;
 
-import aplicacion.Mensaje;
+import aplicacion.*;
 
 /**
  *
@@ -16,6 +16,8 @@ public class Vcorreo extends javax.swing.JDialog {
     private aplicacion.FachadaAplicacion fa;
     private java.awt.Frame parent;
     private java.util.List<Mensaje> mensajes;
+    private java.util.List<Mensaje> mensajesLeidos;
+    private String correoUsuario;
     /**
      * Creates new form Vcorreo
      */
@@ -25,6 +27,8 @@ public class Vcorreo extends javax.swing.JDialog {
         this.parent=parent;
         initComponents();
         
+        mensajesLeidos=new java.util.ArrayList();
+        correoUsuario = mensajes.get(0).getCorreoDestinatario();
         this.mensajes=mensajes;
         ModeloTablaMensajes mTablaMensajes = new ModeloTablaMensajes();
         tablaMensajes.setModel(mTablaMensajes);
@@ -43,7 +47,7 @@ public class Vcorreo extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMensajes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        btlFiltarLeido = new javax.swing.JToggleButton();
+        btnFiltarLeido = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         taMensaje = new javax.swing.JTextArea();
         btnResponder = new javax.swing.JButton();
@@ -58,6 +62,7 @@ public class Vcorreo extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tablaMensajes.setModel(new ModeloTablaMensajes());
+        tablaMensajes.setEditingColumn(0);
         tablaMensajes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaMensajesMouseClicked(evt);
@@ -67,7 +72,12 @@ public class Vcorreo extends javax.swing.JDialog {
 
         jLabel1.setText("Bandeja de Mensajes:");
 
-        btlFiltarLeido.setText("Filtrar por Leído");
+        btnFiltarLeido.setText("Filtrar por Leído");
+        btnFiltarLeido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltarLeidoActionPerformed(evt);
+            }
+        });
 
         taMensaje.setColumns(20);
         taMensaje.setRows(5);
@@ -79,6 +89,11 @@ public class Vcorreo extends javax.swing.JDialog {
         btnConfirmar.setEnabled(false);
 
         btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Emisor:");
 
@@ -96,7 +111,7 @@ public class Vcorreo extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(btlFiltarLeido)
+                            .addComponent(btnFiltarLeido)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -130,7 +145,7 @@ public class Vcorreo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtFiltradoAsunto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btlFiltarLeido)
+                        .addComponent(btnFiltarLeido)
                         .addComponent(jLabel2)
                         .addComponent(txtFiltroEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFiltrar)
@@ -153,15 +168,55 @@ public class Vcorreo extends javax.swing.JDialog {
 
     private void tablaMensajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMensajesMouseClicked
         taMensaje.setText(mensajes.get(tablaMensajes.getSelectedRow()).getTexto());
+        if(!mensajes.get(tablaMensajes.getSelectedRow()).getLeido()) {
+            mensajes.get(tablaMensajes.getSelectedRow()).setLeido(true);
+            if(!fa.modificarLeidoMensaje(mensajes.get(tablaMensajes.getSelectedRow())))
+                mensajes.get(tablaMensajes.getSelectedRow()).setLeido(false);
+            else{
+                ModeloTablaMensajes mtablaMensajes =((ModeloTablaMensajes) tablaMensajes.getModel());
+                mtablaMensajes.setFilas(mensajes);
+            }
+        }
+        if(tablaMensajes.getSelectedColumn()==0){
+            mensajes.get(tablaMensajes.getSelectedRow()).setLeido(!mensajes.get(tablaMensajes.getSelectedRow()).getLeido());
+            if(!fa.modificarLeidoMensaje(mensajes.get(tablaMensajes.getSelectedRow())))
+                mensajes.get(tablaMensajes.getSelectedRow()).setLeido(false);
+            else{
+                ModeloTablaMensajes mtablaMensajesdos =((ModeloTablaMensajes) tablaMensajes.getModel());
+                mtablaMensajesdos.setFilas(mensajes);
+            }
+            ModeloTablaMensajes mtablaMensajes =((ModeloTablaMensajes) tablaMensajes.getModel());
+            mtablaMensajes.setFilas(mensajes);
+        }
     }//GEN-LAST:event_tablaMensajesMouseClicked
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        mensajes = fa.consultarMensajes(correoUsuario, txtFiltroEmisor.getText(), txtFiltradoAsunto.getText());
+        ModeloTablaMensajes mtablaMensajesdos =((ModeloTablaMensajes) tablaMensajes.getModel());
+        mtablaMensajesdos.setFilas(mensajes);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnFiltarLeidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltarLeidoActionPerformed
+        if(btnFiltarLeido.isSelected()){
+            for(Mensaje mg: mensajes) if(mg.getLeido()) mensajesLeidos.add(mg);
+            mensajes.removeAll(mensajesLeidos);
+            ModeloTablaMensajes mtablaMensajesdos =((ModeloTablaMensajes) tablaMensajes.getModel());
+            mtablaMensajesdos.setFilas(mensajes);
+        }else{
+            mensajes.addAll(mensajesLeidos);
+            mensajesLeidos.clear();
+            ModeloTablaMensajes mtablaMensajesdos =((ModeloTablaMensajes) tablaMensajes.getModel());
+            mtablaMensajesdos.setFilas(mensajes);
+        }
+    }//GEN-LAST:event_btnFiltarLeidoActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btlFiltarLeido;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JToggleButton btnFiltarLeido;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnNuevoMensaje;
     private javax.swing.JButton btnResponder;

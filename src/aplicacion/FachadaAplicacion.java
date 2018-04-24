@@ -82,6 +82,13 @@ public class FachadaAplicacion {
     public Usuario esClaveCorrecta(String correo, String clave){
         return fbd.esClaveCorrecta(correo, clave);
     }
+    public java.util.List<Mensaje> consultarMensajes(String correo,String emisor,String asunto){
+         return fbd.consultarMensajes(correo,emisor,asunto);
+    }
+    public boolean modificarLeidoMensaje(Mensaje mg){
+        boolean a = fbd.modificarLeidoMensaje(mg);
+        return a;
+    }
 }
 
 

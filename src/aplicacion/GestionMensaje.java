@@ -24,7 +24,7 @@ public class GestionMensaje {
     public void abrirCorreo(String correo){
         java.util.List<Mensaje> mensajes = new java.util.ArrayList<> ();
         
-        mensajes = fbd.consultarMensajes(correo);
+        mensajes = fbd.consultarMensajes(correo,"","");
         
         
         fgui.abrirMensaje(mensajes);

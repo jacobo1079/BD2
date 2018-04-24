@@ -56,6 +56,7 @@ public class ModeloTablaMensajes extends javax.swing.table.AbstractTableModel{
     
     @Override
     public boolean isCellEditable(int row, int col){
+        if(col==0) return true;
         return false;
     }
     

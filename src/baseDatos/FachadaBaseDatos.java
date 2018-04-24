@@ -102,4 +102,7 @@ public class FachadaBaseDatos {
     public Usuario esClaveCorrecta(String correo, String clave){
         return daoUsuarios.esClaveCorrecta(correo, clave);
     }
+    public boolean modificarLeidoMensaje(Mensaje mg){
+        return daoMensajes.modificarLeidoMensaje(mg);
+    }
 }

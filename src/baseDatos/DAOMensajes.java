@@ -61,4 +61,32 @@ public class DAOMensajes extends AbstractDAO {
         return resultado;
                                 
     }
+    
+    public boolean modificarLeidoMensaje(Mensaje mg){
+        boolean retorno = false;
+        
+        PreparedStatement stmMensaje=null;
+        Connection con;
+        con=this.getConexion();
+        
+        
+        String modificacion = "update enviarmensaje set leido = ?"
+                            + " where correoremitente = ? and correodestinatario = ? and fecha = ?";
+        
+        try{
+            stmMensaje = con.prepareStatement(modificacion);
+            stmMensaje.setBoolean(1, mg.getLeido());
+            stmMensaje.setString(2, mg.getCorreoRemitente());
+            stmMensaje.setString(3, mg.getCorreoDestinatario());
+            stmMensaje.setTimestamp(4, mg.getFecha());
+            stmMensaje.executeUpdate();
+            retorno =  true;
+        }catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+          try {stmMensaje.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return retorno;
+    }
 }
