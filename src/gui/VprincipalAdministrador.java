@@ -788,7 +788,7 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
 
     private void btnBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarUsuarioActionPerformed
         int pos = tablaUsuarios.getSelectedRow();
-        if(fa.eliminarAlumno(((Alumno) usuarios.get(pos)))){
+        if(fa.eliminarUsuario(usuarios.get(pos))){
             usuarios.remove(pos);
             ((ModeloTablaUsuarios) tablaUsuarios.getModel()).setFilas(usuarios);
             tablaUsuarios.setRowSelectionInterval(0, 0);

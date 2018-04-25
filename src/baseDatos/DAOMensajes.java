@@ -89,4 +89,36 @@ public class DAOMensajes extends AbstractDAO {
         }
         return retorno;
     }
+    
+    public void enviarMensaje(Mensaje mensaje) {
+
+        PreparedStatement stmMensaje = null;
+        Connection con;
+        con = this.getConexion();
+        
+        String insercion = "INSERT INTO enviarmensaje(correoremitente, correodestinatario,"+
+                            "fecha, texto, leido, asunto)" +
+                            " VALUES (?, ?, ?, ?, ?, ?);";
+        
+        try {
+            stmMensaje = con.prepareStatement(insercion);
+            stmMensaje.setString(1, mensaje.getCorreoRemitente());
+            stmMensaje.setString(2, mensaje.getCorreoDestinatario());
+            stmMensaje.setTimestamp(3, mensaje.getFecha());
+            stmMensaje.setString(4, mensaje.getTexto());
+            stmMensaje.setBoolean(5, mensaje.getLeido());
+            stmMensaje.setString(6, mensaje.getAsunto());
+            stmMensaje.executeUpdate();
+           
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        } finally {
+            try {
+                stmMensaje.close();
+            } catch (SQLException e) {
+                System.out.println("Imposible cerrar cursores");
+            }
+        }
+    }
 }

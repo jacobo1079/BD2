@@ -73,21 +73,33 @@ public class FachadaAplicacion {
         return fbd.consultarBloques(nombre, grado, descripcion);
     }
     
-    public boolean eliminarAlumno(Alumno us){
-        return fbd.eliminarAlumno(us);
+    public boolean eliminarUsuario(Usuario us){
+        return fbd.eliminarUsuario(us);
     }
+    
     public void abrirCorreo(String correo){
         cm.abrirCorreo(correo);
     }
+    
     public Usuario esClaveCorrecta(String correo, String clave){
         return fbd.esClaveCorrecta(correo, clave);
     }
+    
     public java.util.List<Mensaje> consultarMensajes(String correo,String emisor,String asunto){
          return fbd.consultarMensajes(correo,emisor,asunto);
     }
+    
     public boolean modificarLeidoMensaje(Mensaje mg){
         boolean a = fbd.modificarLeidoMensaje(mg);
         return a;
+    }
+    
+    public void nuevoMensaje(String remitente, String destinatario,String asunto){
+        cm.nuevoMensaje(remitente, destinatario,asunto);
+    }
+    
+    public void enviarMensaje(Mensaje mensaje){
+        cm.enviarMensaje(mensaje);
     }
 }
 

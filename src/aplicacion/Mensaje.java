@@ -74,4 +74,13 @@ public class Mensaje {
         this.leido = leido;
         this.texto = texto;
     }
+    
+    public Mensaje() {
+        this.correoRemitente = null;
+        this.correoDestinatario = null;
+        this.fecha = null;
+        this.asunto = null;
+        this.leido = false;
+        this.texto = null;
+    }
 }

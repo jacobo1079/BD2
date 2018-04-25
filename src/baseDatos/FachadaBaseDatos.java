@@ -93,8 +93,8 @@ public class FachadaBaseDatos {
     public java.util.List<Bloque> consultarBloques(String nombre, String grado,String descripcion){
         return daoBloques.consultarBloques(nombre, grado, descripcion);
     }
-    public boolean eliminarAlumno(Alumno us){
-        return daoUsuarios.eliminarAlumno(us);
+    public boolean eliminarUsuario(Usuario us){
+        return daoUsuarios.eliminarUsuario(us);
     }
     public java.util.List<Mensaje> consultarMensajes(String correo,String emisor,String asunto){
          return daoMensajes.consultarMensajes(correo,emisor,asunto);
@@ -104,5 +104,8 @@ public class FachadaBaseDatos {
     }
     public boolean modificarLeidoMensaje(Mensaje mg){
         return daoMensajes.modificarLeidoMensaje(mg);
+    }
+    public void enviarMensaje(Mensaje mensaje){
+        daoMensajes.enviarMensaje(mensaje);
     }
 }

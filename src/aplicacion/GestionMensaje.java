@@ -30,5 +30,11 @@ public class GestionMensaje {
         fgui.abrirMensaje(mensajes);
         
     }
+    public void nuevoMensaje(String remitente, String destinatario,String asunto){
+        fgui.nuevoMensaje(remitente,destinatario,asunto);
+    }
     
+    public void enviarMensaje(Mensaje mensaje){
+        fbd.enviarMensaje(mensaje);
+    }
 }

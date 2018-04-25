@@ -41,4 +41,11 @@ public class FachadaGui {
         correo = new Vcorreo(vp,true,fa,mensajes);
         correo.setVisible(true);
     }
+    
+    public void nuevoMensaje(String remitente, String destinatario,String asunto){
+        VenviarMensaje enviarmensaje;
+        
+        enviarmensaje = new VenviarMensaje(vp, true, fa, remitente, destinatario,asunto);
+        enviarmensaje.setVisible(true);
+    }
 }
