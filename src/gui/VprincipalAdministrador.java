@@ -19,14 +19,11 @@ public class VprincipalAdministrador extends javax.swing.JFrame {
     private aplicacion.FachadaAplicacion fa;
     private java.util.List<Bloque> bloques;
     private Administrador administrador;
-    //REFERENCIA AL PADRE CUANDO SE INSTALE EN LA POSICON FINAL DE LA APLICACION
-//    private VPrincipal padre;       mirar en libro como lo hace guay
     
     /**
      * Creates new form VprincipalAdministrador
      */
-    public VprincipalAdministrador( /*java.awt.Frame parent, boolean modal,*/ aplicacion.FachadaAplicacion fa,java.util.List<Grado> grados,java.util.List<Usuario> usuarios) {
-        /*super(parent, modal);*/
+    public VprincipalAdministrador( aplicacion.FachadaAplicacion fa,java.util.List<Grado> grados,java.util.List<Usuario> usuarios) {
         this.fa=fa;
         initComponents();
         
