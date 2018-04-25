@@ -35,10 +35,10 @@ public class FachadaGui {
        va = new VAviso(vp, true, txtExcepcion);
        va.setVisible(true);
     }
-    public void abrirMensaje(java.util.List<Mensaje> mensajes){
+    public void abrirMensaje(java.util.List<Mensaje> mensajes,String direccionCorreo){
         Vcorreo correo;
         
-        correo = new Vcorreo(vp,true,fa,mensajes);
+        correo = new Vcorreo(vp,true,fa,mensajes,direccionCorreo);
         correo.setVisible(true);
     }
     

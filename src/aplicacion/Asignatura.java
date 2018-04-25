@@ -93,4 +93,9 @@ public class Asignatura {
     public void setNumeroAlumnos(int numeroAlumnos) {
         this.numeroAlumnos = numeroAlumnos;
     }
+    
+    @Override
+    public String toString(){
+        return this.nombre;
+    }
 }

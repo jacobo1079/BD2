@@ -108,4 +108,7 @@ public class FachadaBaseDatos {
     public void enviarMensaje(Mensaje mensaje){
         daoMensajes.enviarMensaje(mensaje);
     }
+    public boolean inserrtarGradoAsistente(Grado gr,java.util.List<Bloque> bloques){
+        return daoGrados.inserrtarGradoAsistente(gr, bloques);
+    }
 }

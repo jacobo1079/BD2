@@ -101,6 +101,10 @@ public class FachadaAplicacion {
     public void enviarMensaje(Mensaje mensaje){
         cm.enviarMensaje(mensaje);
     }
+    
+    public boolean inserrtarGradoAsistente(Grado gr,java.util.List<Bloque> bloques){
+        return fbd.inserrtarGradoAsistente(gr, bloques);
+    }
 }
 
 

@@ -27,7 +27,7 @@ public class GestionMensaje {
         mensajes = fbd.consultarMensajes(correo,"","");
         
         
-        fgui.abrirMensaje(mensajes);
+        fgui.abrirMensaje(mensajes,correo);
         
     }
     public void nuevoMensaje(String remitente, String destinatario,String asunto){

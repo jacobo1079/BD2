@@ -21,14 +21,14 @@ public class Vcorreo extends javax.swing.JDialog {
     /**
      * Creates new form Vcorreo
      */
-    public Vcorreo(java.awt.Frame parent, boolean modal,aplicacion.FachadaAplicacion fa, java.util.List<Mensaje> mensajes) {
+    public Vcorreo(java.awt.Frame parent, boolean modal,aplicacion.FachadaAplicacion fa, java.util.List<Mensaje> mensajes, String correo) {
         super(parent, modal);
         this.fa=fa;
         this.parent=parent;
         initComponents();
         
         mensajesLeidos=new java.util.ArrayList();
-        correoUsuario = mensajes.get(0).getCorreoDestinatario();
+        correoUsuario = correo;
         this.mensajes=mensajes;
         ModeloTablaMensajes mTablaMensajes = new ModeloTablaMensajes();
         tablaMensajes.setModel(mTablaMensajes);
