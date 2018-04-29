@@ -111,4 +111,7 @@ public class FachadaBaseDatos {
     public boolean inserrtarGradoAsistente(Grado gr,java.util.List<Bloque> bloques){
         return daoGrados.inserrtarGradoAsistente(gr, bloques);
     }
+    public boolean clausuaraAnoAcademico(){
+        return daoUsuarios.clausuaraAnoAcademico();
+    }
 }

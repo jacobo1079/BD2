@@ -498,4 +498,74 @@ public class DAOUsuarios extends AbstractDAO{
         if(us instanceof Administrador) return eliminarAdministrador(((Administrador) us));
         return false;
     }
+    
+    public boolean clausuaraAnoAcademico(){
+        boolean retorno=false;
+        Connection con;
+        ResultSet rsAlumnos;
+        ResultSet rsNotas;
+        PreparedStatement stmUsuario=null;
+        double media=0;
+
+        con=super.getConexion();
+        try {
+            con.setAutoCommit(false);
+            
+            stmUsuario=con.prepareStatement("select correo from alumno");
+            rsAlumnos = stmUsuario.executeQuery();
+            
+            while(rsAlumnos.next()){
+                stmUsuario=con.prepareStatement("select nota from completar where alumno = ?");
+                stmUsuario.setString(1, rsAlumnos.getString("correo"));
+                rsNotas=stmUsuario.executeQuery();
+                rsNotas.next();
+                int i;
+                for( i = 1;rsNotas.next();i++){
+                    media = media +  rsNotas.getDouble("nota");
+                }
+                media = media/i;
+                
+                stmUsuario=con.prepareStatement("select codigoasignatura, bloque , grado from completar where alumno = ?");
+                stmUsuario.setString(1, rsAlumnos.getString("correo"));
+                rsNotas=stmUsuario.executeQuery();
+                
+                if(media>5.0){
+                    stmUsuario=con.prepareStatement("INSERT INTO aprobar(\n" +
+"            alumno, codigoasignatura, bloqueasignatura, gradoasignatura)\n" +
+"    VALUES (?, ?, ?, ?)");
+                    stmUsuario.setString(1, rsAlumnos.getString("correo"));
+                    stmUsuario.setString(2, rsNotas.getString("codigoasignatura"));
+                    stmUsuario.setString(3, rsNotas.getString("bloque"));
+                    stmUsuario.setString(4, rsNotas.getString("grado"));
+                    stmUsuario.executeUpdate();
+                }
+                
+            }
+            
+            stmUsuario=con.prepareStatement("truncate table completar,evento,enviarmensaje,imparten,solicitarDocencia,reservan,solicitarmatricula,tutoria");
+            stmUsuario.executeUpdate();
+            
+            con.commit();
+            retorno=true;
+            
+        } catch (SQLException e){
+          System.out.println(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            try{
+              con.rollback();
+            }catch(SQLException ex){
+              System.out.println(ex.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(ex.getMessage());
+            }
+        }finally{
+            try{
+            con.setAutoCommit(true);
+            }catch(SQLException e){
+              System.out.println(e.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            }
+          try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+        return retorno;
+    }
 }

@@ -105,6 +105,10 @@ public class FachadaAplicacion {
     public boolean inserrtarGradoAsistente(Grado gr,java.util.List<Bloque> bloques){
         return fbd.inserrtarGradoAsistente(gr, bloques);
     }
+    
+    public boolean clausuaraAnoAcademico(){
+        return fbd.clausuaraAnoAcademico();
+    }
 }
 
 
